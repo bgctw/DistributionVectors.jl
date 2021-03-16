@@ -15,7 +15,10 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Types" => "distributionvector.md",
+        "Aggregation" => "sumdist.md",
     ],
+    doctest=false,
 )
 
 deploydocs(;

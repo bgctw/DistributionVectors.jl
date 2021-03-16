@@ -1,6 +1,6 @@
 using DistributionVectors
 using Test
 
-@testset "DistributionVectors.jl" begin
-    # Write your tests here.
-end
+include("distributionvector.jl")
+include("autocor.jl")
+include("sumdistributionvector.jl")

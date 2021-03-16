@@ -3,10 +3,12 @@ CurrentModule = DistributionVectors
 ```
 
 # DistributionVectors
-
-```@index
+```@docs
+DistributionVectors
 ```
 
-```@autodocs
-Modules = [DistributionVectors]
+```@contents
+Pages = ["distributionvector.md", "sumdist.md"]
+Depth = 2
 ```
+
