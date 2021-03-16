@@ -1,0 +1,7 @@
+name = "DistributionVectors"
+uuid = "876525fa-7cae-420f-8fd8-59a6b63fe7c3"
+authors = ["Thomas Wutzler"]
+version = "0.1.0"
+
+[compat]
+julia = "1.5"
