@@ -62,6 +62,8 @@ end;
         @test length(dvec) == 3
     end; 
     @testset "getindex" begin
+        @test @inferred ismissing(dvm,1)
+        @test !@inferred ismissing(dvm,2)
         @test isequal(collect(@inferred dv[1:3]), collect(dv))
         @test isequal(collect(@inferred dvm[1:3]), collect(dvm))
         @test isequal(collect(@inferred dvm[[1,2,3]]), collect(dvm))
@@ -196,6 +198,8 @@ end; # testset "SimpleDistributionVector"
         ismissing(darr[1])
     end; 
     @testset "getindex" begin
+        @test @inferred ismissing(dvm,1)
+        @test !@inferred ismissing(dvm,2)
         @test isequal(collect(@inferred dv[1:3]), collect(dv))
         @test isequal(collect(@inferred dvm[1:3]), collect(dvm))
         @test isequal(collect(@inferred dvm[[1,2,3]]), collect(dvm))

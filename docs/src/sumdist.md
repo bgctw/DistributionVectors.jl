@@ -5,6 +5,10 @@
 sum(::AbstractDistributionVector)
 ```
 
+For examples see 
+- [Sum-and-mean-of-correlated-normal-random-variables](@ref) 
+- [Sum-and-mean-of-correlated-lognormal-random-variables](@ref)
+
 ## Helpers
 ### AutoCorrelationFunction
 

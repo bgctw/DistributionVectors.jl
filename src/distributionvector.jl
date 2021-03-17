@@ -83,9 +83,11 @@ AbstractDistributionVector
 - is iterable
 - has length and index access, i.e. `dv[i]::D`
 - access to entire parameter vectors: `params(dv,Val(i))`
-- conversion of Tuple of Vectors: `params(dv)`
+- conversion to Tuple of Vectors: `params(dv)`
 - array of random numbers: `rand(n, dv)`: adding one 
   dimension that represents across random variables
+- query if entry is missing without needing to construct the 
+  distribution entry: `ismissing(dv,i)`: 
 
 Specific implementations,  need
 to implement at minimum methods `length` and `getindex`, and `params`.
@@ -162,6 +164,9 @@ function rand!(vecarr::AbstractArray{T}, dv::AbstractDistributionVector) where T
     #xm = fill(missing,size(x1))
     fmiss(x)::Union{typeof(xm),typeof(x1)} = (ismissing(x) ? xm : rand(x)) 
     vecarr .= fmiss.(dv)
+end
+function ismissing(dv::AbstractDistributionVector, i::Int)
+    ismissing(dv[i])
 end
 
 ## SimpleDistributionVector   
@@ -253,10 +258,12 @@ similar(dv::SimpleDistributionVector{D,V}) where {D,V} =
     SimpleDistributionVector{D,V}(similar(dv.dvec))
 
 getindex(dv::SimpleDistributionVector,i::Int) = dv.dvec[i] #::Union{Missing, D}
-function getindex(dv::SimpleDistributionVector, I...)
+#function getindex(dv::SimpleDistributionVector, I::Union{AbstractVector{<:Integer},AbstractVector{<:Bool}})
+function getindex(dv::SimpleDistributionVector, I) # ambiguous
     # # Catesian indexing?: provided a tuple -> get only a single value in printing
-    length(I) != 1 && return dv[I[1]]
-     dvecsub = dv.dvec[I...]
+    #length(I) != 1 && return dv[I[1]]
+    #dvecsub = dv.dvec[I...]
+    dvecsub = dv.dvec[I]
     # #@show I, length(I), typeof(I), typeof(dvecsub)
     # length(I) != 1 && return(dvecsub)
     typeof(dv)(dvecsub)
@@ -362,14 +369,20 @@ end
 
 
 length(dv::ParamDistributionVector) = length(first(dv.params))
-IndexStyle(::Type{<:ParamDistributionVector{D,V}}) where {D,V} = IndexStyle(first(V.parameters))
+IndexStyle(::Type{<:ParamDistributionVector{D,V}}) where {D,V} = 
+    IndexStyle(first(V.parameters))
 
 similar(dv::ParamDistributionVector{D,V}) where {D,V} = 
     typeof(dv)(ntuple(i->similar(dv.params[i]), length(dv.params)))
 
+function ismissing(dv::ParamDistributionVector, i::Int; 
+    params_i = getindex.(dv.params, Ref(i)))
+    ismissingt = ntuple(i->ismissing(params_i[i]), length(params_i))
+    any(ismissingt)
+end
 function getindex(dv::ParamDistributionVector, i::Int)
     params_i = getindex.(dv.params, Ref(i))
-    any(ismissing.(params_i)) && return missing
+    ismissing(dv,i; params_i = params_i) && return missing
     nonmissingtype(eltype(dv))(params_i...)
 end
 function getindex(dv::ParamDistributionVector, I)

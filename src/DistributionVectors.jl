@@ -10,9 +10,9 @@ export AbstractDistributionVector, SimpleDistributionVector, ParamDistributionVe
 using Distributions, Missings, Statistics
 using MissingStrategies
 using StatsBase, Random
-using FillArrays, RecursiveArrayTools, BandedMatrices, LinearAlgebra
+using FillArrays, RecursiveArrayTools, BandedMatrices, LinearAlgebra, OffsetArrays
 
-import Base: size, length, IndexStyle, similar, getindex, setindex!, sum
+import Base: size, length, IndexStyle, similar, getindex, setindex!, sum, ismissing
 import Random: rand, rand!
 import Statistics: mean
 import StatsBase: params, coef
@@ -20,5 +20,8 @@ import StatsBase: params, coef
 include("distributionvector.jl")
 include("autocor.jl")
 include("sumdistributionvector.jl")
+
+# specific distributions
+include("univariates.jl") 
 
 end # module

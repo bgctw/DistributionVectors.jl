@@ -11,8 +11,8 @@ Compute the distribution of the sum or mean of correlated random variables.
 
 # Arguments
 - `dv`: The vector of distributions, see [`AbstractDistributionVector`](@ref)
-- `ms`: [`MissingStrategy`]: set to `SkipMissing()` to consciously care
-  for missing values in `dv`.
+- `ms`: `MissingStrategy`: set to `SkipMissing()` or `ExactMissing()`to 
+    consciously care for missing values in `dv`.
 
 An optional second arguments supports correlation between random variables.
 - `corr::Symmetric`: correlation matrix, or

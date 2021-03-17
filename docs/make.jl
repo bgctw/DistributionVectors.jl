@@ -17,6 +17,11 @@ makedocs(;
         "Home" => "index.md",
         "Types" => "distributionvector.md",
         "Aggregation" => "sumdist.md",
+        "Univariate" => [
+            "Overview" => "univariate.md",
+            "Normal" => "normal.md",
+            "LogNormal" => "lognormal.md",
+        ],
     ],
     doctest=false,
 )
