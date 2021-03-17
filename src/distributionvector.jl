@@ -361,9 +361,18 @@ function ParamDistributionVector(dtup::Vararg{Union{Missing,D},N}) where
 end
 
 
+function allowmissingtuple(pvec::Vararg{Any,N}) where N
+    ntuple(i -> allowmissing(pvec[i]), N) # works only typestable from Julia1.6
+end
 function ParamDistributionVector(::Type{D}, pvec::Vararg{Any,N}) where 
     {D<:Distribution, N} 
-    pvecm = ntuple(i -> allowmissing(pvec[i]), N)
+    isMissingAllowed = all(.<:(Missing, eltype.(pvec)))
+    pvecm = isMissingAllowed ? pvec : begin
+        inferred_type = first(Base.return_types(allowmissingtuple, typeof.(pvec))) 
+        inferred_type === Tuple && error(
+            "All parameter vectors must allow for missings. Use allowmissing(parm).")
+        allowmissingtuple(pvec...)
+    end
     ParamDistributionVector(D, pvecm)        
 end
 
@@ -378,7 +387,7 @@ similar(dv::ParamDistributionVector{D,V}) where {D,V} =
 function ismissing(dv::ParamDistributionVector, i::Int; 
     params_i = getindex.(dv.params, Ref(i)))
     ismissingt = ntuple(i->ismissing(params_i[i]), length(params_i))
-    any(ismissingt)
+    any(ismissingt)::Bool
 end
 function getindex(dv::ParamDistributionVector, i::Int)
     params_i = getindex.(dv.params, Ref(i))

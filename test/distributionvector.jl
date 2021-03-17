@@ -231,12 +231,18 @@ end; # testset "SimpleDistributionVector"
         @test_throws Exception dv = ParamDistributionVector(missing);
     end;
     @testset "constructor with parameter vectors" begin
-        dv = @inferred ParamDistributionVector(Binomial{Float64}, n, p)
-        d1 = @inferred Missing dv[1]
-        @test params(d1) == (n[1], p[1])
+        try
+            # only works from Julia 1.6 with n,p not allowing for missings
+            dv = @inferred ParamDistributionVector(Binomial{Float64}, n, p)
+            d1 = @inferred Missing dv[1]
+            @test params(d1) == (n[1], p[1])
+        catch e 
+            @test isa(e, ErrorException)
+        end
         # when one parameter has missing, the entire tuple must be set to missing
-        dv = @inferred ParamDistributionVector(Binomial{Float64}, nm, p)
+        dv = @inferred ParamDistributionVector(Binomial{Float64}, nm, allowmissing(p))
         @test ismissing(dv[1])
+        @test ismissing(dv,1)
         # need concrete type, here test missing {Float64}
         @test_throws ErrorException ParamDistributionVector(Binomial, n, p)
     end;
