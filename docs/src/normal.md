@@ -52,7 +52,7 @@ dv = SimpleDistributionVector(Normal{eltype(μ)}, μ, σ);
 acf = AutoCorrelationFunction([0.4,0.1]);
 isgapfilled = fill(false, length(dv)); isgapfilled[4:end] .= true;
 
-dsum = sum(dv, acf, SkipMissing(); isgapfilled=isgapfilled)
+dsum = sum(dv, acf; isgapfilled=isgapfilled)
 
 # same mean but larger relative than with ignoring gap-filled flag:
 dsum_ig = sum(dv, acf);
