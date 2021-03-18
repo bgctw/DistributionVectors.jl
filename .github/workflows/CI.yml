@@ -26,7 +26,7 @@ jobs:
       - run:
           # allo RegistryTw julia registry
           julia -e '
-          using Pkg
+          using Pkg;
           Pkg.Registry.add(RegistrySpec(url = "https://github.com/bgctw/RegistryTw.git"))'
       - uses: actions/cache@v1
         env:
@@ -55,7 +55,7 @@ jobs:
       - run:
           # register RegistryTw julia registry
           julia -e '
-          using Pkg
+          using Pkg;
           Pkg.Registry.add(RegistrySpec(url = "https://github.com/bgctw/RegistryTw.git"))'
       - run: |
           julia --project=docs -e '
