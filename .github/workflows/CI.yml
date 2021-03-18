@@ -26,8 +26,8 @@ jobs:
       - run:
           # allo RegistryTw julia registry
           julia -e '
-          Pkg.Registry.add(
-            RegistrySpec(url = "https://github.com/bgctw/RegistryTw.git"))'
+          using Pkg
+          Pkg.Registry.add(RegistrySpec(url = "https://github.com/bgctw/RegistryTw.git"))'
       - uses: actions/cache@v1
         env:
           cache-name: cache-artifacts
