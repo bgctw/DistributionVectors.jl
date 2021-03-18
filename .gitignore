@@ -1,8 +1,8 @@
 *.jl.*.cov
 *.jl.cov
 *.jl.mem
-# /Manifest.toml
-#/docs/Manifest.toml
-#/test/Manifest.toml
 /docs/build/
 /docs/secrets/*
+#/docs/Manifest.toml
+#/Manifest.toml
+#/test/Manifest.toml
