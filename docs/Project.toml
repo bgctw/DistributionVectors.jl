@@ -1,3 +1,4 @@
 [deps]
 DistributionVectors = "876525fa-7cae-420f-8fd8-59a6b63fe7c3"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 MissingStrategies = "e455a6d6-8373-11eb-38a5-df3e63e3f6fc"
