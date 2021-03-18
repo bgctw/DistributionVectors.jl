@@ -1,5 +1,5 @@
 using Test, DistributionVectors
-using Distributions, MissingStrategies, Missings
+using Distributions, StatsBase, MissingStrategies, Missings
 using LinearAlgebra
 
 @testset "Normal" begin

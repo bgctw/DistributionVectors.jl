@@ -1,0 +1,7 @@
+[deps]
+DistributionVectors = "876525fa-7cae-420f-8fd8-59a6b63fe7c3"
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+MissingStrategies = "e455a6d6-8373-11eb-38a5-df3e63e3f6fc"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
