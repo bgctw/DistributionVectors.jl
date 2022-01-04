@@ -144,8 +144,10 @@ end;
         nD = length(dv0)
         x = @inferred rand(dv0)
         @test size(x) == (nD,)
+        rand!(x, dv0)
         x = @inferred rand(dv0,2)
         @test size(x) == (2, nD)
+        # not implemented: rand!(x, dvm, 2)
         #@code_warntype rand(dv0)
         # with missings
         nD = length(dv0)
