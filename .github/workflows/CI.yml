@@ -24,11 +24,11 @@ jobs:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
       - run:
-          # allo RegistryTw julia registry
           julia -e '
           using Pkg;
           Pkg.Registry.add(RegistrySpec(url = "https://github.com/JuliaRegistries/General"));
-          Pkg.Registry.add(RegistrySpec(url = "https://github.com/bgctw/RegistryTw.git"))'
+          # allow RegistryTw julia registry
+          #Pkg.Registry.add(RegistrySpec(url = "https://github.com/bgctw/RegistryTw.git"))'
       - uses: actions/cache@v1
         env:
           cache-name: cache-artifacts
@@ -54,11 +54,11 @@ jobs:
         with:
           version: '1'
       - run:
-          # register RegistryTw julia registry
           julia -e '
           using Pkg;
           Pkg.Registry.add(RegistrySpec(url = "https://github.com/JuliaRegistries/General"));
-          Pkg.Registry.add(RegistrySpec(url = "https://github.com/bgctw/RegistryTw.git"))'
+          # register RegistryTw julia registry
+          # Pkg.Registry.add(RegistrySpec(url = "https://github.com/bgctw/RegistryTw.git"))'
       - run: |
           julia --project=docs -e '
             using Pkg
