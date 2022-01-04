@@ -26,10 +26,9 @@ jobs:
       - run:
           julia -e '
           using Pkg;
-          Pkg.Registry.add(RegistrySpec(url = "https://github.com/JuliaRegistries/General"));
+          Pkg.Registry.add(RegistrySpec(url = "https://github.com/JuliaRegistries/General"));'
           # allow RegistryTw julia registry
           #Pkg.Registry.add(RegistrySpec(url = "https://github.com/bgctw/RegistryTw.git"))
-          '
       - uses: actions/cache@v1
         env:
           cache-name: cache-artifacts
@@ -57,10 +56,9 @@ jobs:
       - run:
           julia -e '
           using Pkg;
-          Pkg.Registry.add(RegistrySpec(url = "https://github.com/JuliaRegistries/General"));
+          Pkg.Registry.add(RegistrySpec(url = "https://github.com/JuliaRegistries/General"));'
           # register RegistryTw julia registry
           # Pkg.Registry.add(RegistrySpec(url = "https://github.com/bgctw/RegistryTw.git"))
-          '
       - run: |
           julia --project=docs -e '
             using Pkg
