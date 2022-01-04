@@ -19,7 +19,7 @@ dsum = sum(dv, acf0)
 ```
 
 ```@setup boot
-using StatsPlots,Plots,LinearAlgebra,Missings,Test
+using StatsPlots,LinearAlgebra, Missings
 function boot_dvsums_acf(dv, acf, nboot = 10_000)
     μ, σ = params(dv)
     Sigma = Diagonal(σ) * cormatrix_for_acf(length(dv), acf) * Diagonal(σ);
@@ -28,7 +28,7 @@ function boot_dvsums_acf(dv, acf, nboot = 10_000)
     sums = vec(sum(x, dims = 1))
 end
 sums = boot_dvsums_acf(dv, acf0); 
-@test isapprox(dsum, fit(LogNormal, sums), rtol = 0.2) 
+@assert isapprox(dsum, fit(LogNormal, sums), rtol = 0.2) 
 p = plot(dsum, lab="computed", xlabel="sum of 3 correlated lognormally distributed random variables", ylabel="density");
 density!(p, sums, lab="random sample");
 vline!(p, [mean(dsum)], lab="mean computed");

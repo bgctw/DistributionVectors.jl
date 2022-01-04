@@ -1,9 +1,17 @@
 using DistributionVectors
 using Test, Random
 
-include("distributionvector.jl")
-include("autocor.jl")
-include("sumdistributionvector.jl")
+@testset "DistributionVector" begin
+    include("distributionvector.jl")
+end
+
+@testset "autocor" begin
+    include("autocor.jl")
+end
+
+@testset "sumdistributionvector" begin
+    include("sumdistributionvector.jl")
+end
 
 const tests = [
     "normal",

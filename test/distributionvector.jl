@@ -1,7 +1,6 @@
 using DistributionVectors
 using Missings, Distributions, Test
-
-@testset "DistributionVector" begin
+import LinearAlgebra: I
 
 @testset "vectuptotupvec" begin
     vectup = [(1,1.01, "string 1"), (2,2.02, "string 2")] 
@@ -118,9 +117,9 @@ end;
         @test_throws BoundsError params(dv0,Val(3))
     end;
     @testset "Multivariate distribution with complex parameter types" begin
-        #dmn1 = MvNormal(3, 1) # does not work because its of different specific type
-        dmn1 = MvNormal([0,0,0], 1)
-        dmn2 = MvNormal([1,1,1], 2)
+        #dmn1 = MvNormal(3, 1*I) # does not work because its of different specific type
+        dmn1 = MvNormal([0,0,0], 1*I)
+        dmn2 = MvNormal([1,1,1], 2*I)
         #params(dmn1), params(dmn2)
         dv = @inferred SimpleDistributionVector(dmn1, dmn2, missing, missing);
         @test @inferred Missing dv[1] == dmn1
@@ -255,9 +254,9 @@ end; # testset "SimpleDistributionVector"
         @test_throws BoundsError params(dv0,Val(3))
     end;
     @testset "Multivariate distribution with complex parameter types" begin
-        #dmn1 = MvNormal(3, 1) # does not work because its of different specific type
-        dmn1 = MvNormal([0,0,0], 1)
-        dmn2 = MvNormal([1,1,1], 2)
+        #dmn1 = MvNormal(3, 1*I) # does not work because its of different specific type
+        dmn1 = MvNormal([0,0,0], 1*I)
+        dmn2 = MvNormal([1,1,1], 2*I)
         #params(dmn1), params(dmn2)
         dv = @inferred ParamDistributionVector(dmn1, dmn2, missing)
         typeof(dv).parameters[1]
@@ -298,4 +297,3 @@ end; # testset "SimpleDistributionVector"
     end;
 end; #@testset "ParamDistributionVector"
 
-end; # @testset "DistributionVector"

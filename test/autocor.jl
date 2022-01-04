@@ -3,8 +3,6 @@ using Test
 using DistributionVectors
 using StatsBase # coef
 
-@testset "autocor" begin
-
 @testset "cormatrix_for_acf" begin    
     acf0 = [1,0.4,0.1]
     nsum = 5
@@ -23,5 +21,4 @@ end;
     @test @inferred coef(acf,1) == acfvec[2] # vector starts with lag 0
 end;
 
-end; # autocor
 

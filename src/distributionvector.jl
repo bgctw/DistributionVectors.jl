@@ -99,8 +99,8 @@ There are two standard implementations:
 
 # Examples
 ```jldoctest; output = false, setup = :(using Distributions)
-dmn1 = MvNormal([0,0,0], 1)
-dmn2 = MvNormal([1,1,1], 2)
+dmn1 = MvNormal([0,0,0], 1 * I)
+dmn2 = MvNormal([1,1,1], 2 * I)
 dv = SimpleDistributionVector(dmn1, dmn2, missing, missing);
 sample = rand(dv,2);
 # 4 distr, each 2 samples of length 3
