@@ -25,4 +25,5 @@ Missings = "1.0"
 RecursiveArrayTools = "2.11"
 StatsBase = "0.33"
 BandedMatrices = "0.16"
+FillArrays = "0.12"
 
