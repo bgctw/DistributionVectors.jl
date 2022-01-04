@@ -131,6 +131,9 @@ end;
       dvm, acf1, SkipMissing(), isgapfilled=isgapfilled, 
       method = Val(:bandedmatrix))
     @test dsum5c == dsum4b
+    @test_throws ErrorException sum(
+      dvm, acf1, SkipMissing(), isgapfilled=isgapfilled, 
+      method = Val(:badmethodarg))
   end;
 end;  
 

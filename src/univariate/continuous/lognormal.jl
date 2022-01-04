@@ -48,7 +48,7 @@ function sum(dv::AbstractDistributionVector{D},
         return(sum_lognormals(
             dv, corrM, ms; isgapfilled=isgapfilled, storage = storage))
     end
-    error("Unknown method $method")
+    error("Unknown method $method. Supported are Val(:vector) and Val(:bandedmatrix)")
 end
 
 function sum_lognormals(dv::AbstractDistributionVector{D}, 
