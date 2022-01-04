@@ -99,6 +99,7 @@ There are two standard implementations:
 
 # Examples
 ```jldoctest; output = false, setup = :(using Distributions)
+import LinearAlgebra: I
 dmn1 = MvNormal([0,0,0], 1 * I)
 dmn2 = MvNormal([1,1,1], 2 * I)
 dv = SimpleDistributionVector(dmn1, dmn2, missing, missing);
