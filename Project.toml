@@ -19,7 +19,7 @@ StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 [compat]
 BandedMatrices = "0.16, 0.17"
 Distributions = "0.25"
-FillArrays = "0.12, 0.13"
+FillArrays = "0.12, 0.13, 1"
 MissingStrategies = "0.2"
 Missings = "1.0"
 OffsetArrays = "1.8"
