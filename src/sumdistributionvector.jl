@@ -43,23 +43,23 @@ sum(dv::AbstractDistributionVector{<:MyDist}, corr::Symmetric,
 function sum(dv::AbstractDistributionVector, ms::MissingStrategy=PassMissing(); kwargs...)
     error("sum not defined yet for " * 
     "Distributionvector{$(nonmissingtype(eltype(dv)))}")
-end,
+end
 function sum(dv::AbstractDistributionVector, acf::AutoCorrelationFunction, ms::MissingStrategy=PassMissing(); kwargs...)
     corrmat = cormatrix_for_acf(length(dv), acf)
     sum(dv, Symmetric(corrmat), ms)
-end, 
+end
 function sum(dv::AbstractDistributionVector, corr::Symmetric, ms::MissingStrategy=PassMissing(); kwargs...)
     error("sum with correlations not defined yet for " * 
     "Distributionvector{$(nonmissingtype(eltype(dv)))}")
-end, 
+end 
 function mean(dv::AbstractDistributionVector, ms::MissingStrategy=PassMissing(); kwargs...)
     error("mean not defined yet for " * 
     "Distributionvector{$(nonmissingtype(eltype(dv)))}")
-end,
+end
 function mean(dv::AbstractDistributionVector, acf::AutoCorrelationFunction, ms::MissingStrategy=PassMissing(); kwargs...)
     corrmat = cormatrix_for_acf(length(dv), acf)
     mean(dv, Symmetric(corrmat), ms)
-end,
+end
 function mean(dv::AbstractDistributionVector, corr::Symmetric, ms::MissingStrategy=PassMissing(); kwargs...)
     error("mean with correlations not defined yet for " * 
     "Distributionvector{$(nonmissingtype(eltype(dv)))}")
