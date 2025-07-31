@@ -11,7 +11,7 @@ DocMeta.setdocmeta!(DistributionVectors, :DocTestSetup, :(using DistributionVect
 makedocs(;
     modules=[DistributionVectors],
     authors="Thomas Wutzler",
-    repo="https://github.com/bgctw/DistributionVectors.jl/blob/{commit}{path}#{line}",
+    repo = Remotes.GitHub("bgctw", "DistributionVectors.jl"),
     sitename="DistributionVectors.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
