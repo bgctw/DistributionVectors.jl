@@ -1,6 +1,7 @@
 using DistributionVectors
 using Missings, Distributions, Test
 import LinearAlgebra: I
+using RecursiveArrayTools, FillArrays
 
 @testset "vectuptotupvec" begin
     vectup = [(1,1.01, "string 1"), (2,2.02, "string 2")] 
@@ -128,9 +129,12 @@ end;
         @inferred Distributions.params(dv, Val(1))
         @test nonmissingtype(eltype(@inferred Missing Distributions.params(dv, Val(1)))) <: AbstractVector
         @test nonmissingtype(eltype(@inferred Missing Distributions.params(dv, Val(2)))) <: AbstractMatrix
-        r1 = @inferred rand(dv)
+        T = Union{VectorOfArray{Float64, 2, Vector{Union{FillArrays.Fill{Missing, 1, Tuple{Base.OneTo{Int64}}}, Vector{Float64}}}}, VectorOfArray{Float64, 2, Vector{Vector{Float64}}}}
+        r1 = @inferred T rand(dv)
         @test size(r1) == (3, 4)
-        rvec = @inferred rand(dv,1) # in each dist(4): vector of 1 draw - mv(3)
+        T = Union{VectorOfArray{Float64, 3, Vector{Union{FillArrays.Fill{Missing, 2, Tuple{Base.OneTo{Int64}, Base.OneTo{Int64}}}, Matrix{Float64}}}}, VectorOfArray{Float64, 3, Vector{Matrix{Float64}}}}
+        rvec = rand(dv,1) # in each dist(4): vector of 1 draw - mv(3)
+        rvec = @inferred T rand(dv,1) # in each dist(4): vector of 1 draw - mv(3)
         @test size(rvec) == (3, 1, 4)
     end;
     @testset "Tuple of all parameter vectors" begin
@@ -144,14 +148,18 @@ end;
         nD = length(dv0)
         x = @inferred rand(dv0)
         @test size(x) == (nD,)
-        rand!(x, dv0)
-        x = @inferred rand(dv0,2)
+        Distributions.rand!(x, dv0)
+        T = Union{RecursiveArrayTools.VectorOfArray{Int64, 2, Vector{Union{FillArrays.Fill{Missing, 1, Tuple{Base.OneTo{Int64}}}, Vector{Int64}}}}, RecursiveArrayTools.VectorOfArray{Int64, 2, Vector{Vector{Int64}}}}
+        x = @inferred T rand(dv0,2)
+        #x = @inferred rand(dv0,2)   # depending on whether dv0 contained missing
         @test size(x) == (2, nD)
         # not implemented: rand!(x, dvm, 2)
         #@code_warntype rand(dv0)
         # with missings
         nD = length(dv0)
-        x = @inferred rand(dvm,5)
+        T = Union{VectorOfArray{Missing, 2, Vector{Union{Fill{Missing, 1, Tuple{Base.OneTo{Int64}}}, Vector{Int64}}}}, VectorOfArray{Int64, 2, Vector{Vector{Int64}}}}
+        x = rand(dvm,5)
+        x = @inferred T rand(dvm,5)
         @test size(x) == (5,nD)
         @test size(x[1]) == (5,)
         @test all(ismissing.(x[:,1]))
@@ -287,12 +295,16 @@ end; # testset "SimpleDistributionVector"
         nD = length(dv0)
         x = @inferred rand(dv0)
         @test size(x) == (nD,)
-        x = @inferred rand(dv0,2)
+        T = Union{
+            VectorOfArray{Missing, 2, Vector{Union{Fill{Missing, 1, Tuple{Base.OneTo{Int64}}}, Vector{Int64}}}}, 
+            VectorOfArray{Int64, 2, Vector{Union{Fill{Missing, 1, Tuple{Base.OneTo{Int64}}}, Vector{Int64}}}}, 
+            VectorOfArray{Int64, 2, Vector{Vector{Int64}}}}
+        x = @inferred T rand(dv0,2)
         @test size(x) == (2, nD)
         #@code_warntype rand(dv0)
         # with missings
         nD = length(dv0)
-        x = @inferred rand(dvm,5)
+        x = @inferred T rand(dvm,5)
         @test size(x) == (5,nD)
         @test size(x[1]) == (5,)
         @test all(ismissing.(x[:,1]))

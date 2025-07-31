@@ -27,7 +27,7 @@ Var(m) = \sigma^2_m &= Var\left(\sum_i x_i \over n\right) =
 \end{aligned} 
 ```
 
-The [`sum`](@ref) function therefore support keyword argument `isgappfilled`, 
+The [`sum`](@ref) function therefore support keyword argument `isgapfilled`, 
 which is a boolean vector of the length of the sequence of random variables.
 Set the positions to `true` for those records that should contribute to relative 
 uncertainty reduction.

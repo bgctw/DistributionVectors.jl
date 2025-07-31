@@ -147,17 +147,37 @@ function rand(dv::AbstractDistributionVector, n::Integer)
     x1 = rand(first(skipmissing(dv)), n)
     xm = Fill(missing,size(x1))
     #xm = fill(missing,size(x1))
-    fmiss(x)::Union{typeof(xm),typeof(x1)} = (ismissing(x) ? xm : rand(x,n))
-    vecarr = convert(Vector{Union{typeof(xm),typeof(x1)}}, fmiss.(dv))::Vector{Union{typeof(xm),typeof(x1)}}
-    VectorOfArray(vecarr)
+    fmiss(x) = (ismissing(x) ? xm : rand(x,n))
+    # need to give type hints to be inferred (otherwise VectorOfArray[_A,2,T])
+    # depending on whether dv contains a missing, the type of the results differs ->
+    #    provide union 
+    tmp0 = fmiss.(dv)  # eltype not inferred
+    T1 = Union{
+        VectorOfArray{Missing, N, Vector{Union{typeof(xm),typeof(x1)}}},  # edge case
+        VectorOfArray{eltype(x1), N, Vector{Union{typeof(xm),typeof(x1)}}}, 
+        VectorOfArray{eltype(x1), N, Vector{typeof(x1)}}} where N
+    tmp3 = VectorOfArray(tmp0)::T1
+    # @show tmp3
+    # tmp3::T
 end
 function rand(dv::AbstractDistributionVector)
     x1 = rand(first(skipmissing(dv))) 
     xm = Fill(missing,size(x1))
     #xm = fill(missing,size(x1))
     fmiss(x)::Union{typeof(xm),typeof(x1)} = (ismissing(x) ? xm : rand(x)) 
-    vecarr = convert(Vector{Union{typeof(xm),typeof(x1)}}, fmiss.(dv))::Vector{Union{typeof(xm),typeof(x1)}}
-    nonmissingtype(eltype(dv)) <: UnivariateDistribution ? vecarr : VectorOfArray(vecarr)
+    vecarr = fmiss.(dv)
+    # @show nonmissingtype(eltype(dv))
+    if nonmissingtype(eltype(dv)) <: UnivariateDistribution
+        T1 = Union{
+            Vector{Union{Missing,typeof(x1)}},
+            Vector{typeof(x1)}}
+        vecarr::T1
+    else # MultivariateDistribution: Vector of Vectors
+        T = Union{
+            VectorOfArray{eltype(x1), N, Vector{Union{typeof(xm),typeof(x1)}}}, 
+            VectorOfArray{eltype(x1), N, Vector{typeof(x1)}}} where N
+        VectorOfArray(vecarr)::T
+    end
 end
 function rand!(vecarr::AbstractArray{T}, dv::AbstractDistributionVector) where T
     x1 = rand(first(skipmissing(dv))) 
