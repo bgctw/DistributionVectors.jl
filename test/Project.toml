@@ -1,4 +1,5 @@
 [deps]
+DistributionVectors = "876525fa-7cae-420f-8fd8-59a6b63fe7c3"
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 FillArrays = "1a297f60-69ca-5386-bcde-b61e274b549b"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
