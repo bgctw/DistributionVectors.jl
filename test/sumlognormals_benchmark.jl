@@ -30,9 +30,9 @@ function benchmarkSums()
     # # allocating is faster
     # function sum_lognormals2!(S, dv, corr::AbstractMatrix, 
     # ms::MissingStrategy=PassMissing())
-    #     parms = params(dv)
-    #     μ = @view parms[1,:]
-    #     σ = @view parms[2,:]
+    #     pars = params(dv)
+    #     μ = @view pars[1,:]
+    #     σ = @view pars[2,:]
     #     # S = allowmissing(similar(μ))
     #     @. S = exp(μ + abs2(σ)/2)
     #     nmissing = count(ismissing, S)

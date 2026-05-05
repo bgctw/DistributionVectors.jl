@@ -1,6 +1,6 @@
 # inference on Distribution type D not needed any more
 # function paramtypes(::Type{D}) where D<:Distribution 
-#     isconcretetype(D) || error("Expected a concrete distibution type," *
+#     isconcretetype(D) || error("Expected a concrete distribution type," *
 #         " Did you specify all type parameters, e.g. $D{Float64}?")
 #     D.types
 # end
@@ -114,7 +114,7 @@ abstract type AbstractDistributionVector{D <: Distribution} <: AbstractVector{Un
 
 size(dv::AbstractDistributionVector) = (length(dv),)
 
-# the following already definded by AbstractVector{D}
+# the following already defined by AbstractVector{D}
 #Base.eltype(::Type{<:AbstractDistributionVector{D}}) where D = Union{Missing,D}
 #Base.ndims(::Type{<:AbstractDistributionVector}) = 1
 
@@ -232,7 +232,7 @@ end
 
 function SimpleDistributionVector(::Type{D}, dvec::V) where 
 {D<:Distribution,  V<:AbstractVector} 
-    isconcretetype(D) || error("Expected a concrete distibution type," *
+    isconcretetype(D) || error("Expected a concrete distribution type," *
         " Did you specify all type parameters, e.g. $D{Float64}?")
     Missing <: eltype(V) || error(
         "Expected type of parameters to allow for missing." *
@@ -247,7 +247,7 @@ end
 function SimpleDistributionVector(dv::Vararg{Union{Missing,D},N}) where 
     {D<:Distribution, N} 
     N == 0 && error(
-        "Provide at least one argument, i.e. distribtution," *
+        "Provide at least one argument, i.e. distributions," *
         "i n SimpleDistributionVector(x...).")
     d1 = first(skipmissing(dv))
     dvec = collect(Union{Missing, typeof(d1)}, dv)::Vector{Union{Missing, typeof(d1)}}
@@ -295,7 +295,7 @@ setindex!(dv::SimpleDistributionVector, d, i::Int) = dv.dvec[i] = d
 # params(i) already defined as default in AbstractDistributionVector
 # function StatsBase.params(dv::SimpleDistributionVector, i::Integer) 
 #    # mappedarray(e -> passmissing(getindex)(e,i), dv.dvec)
-#    # currentl does not work, see 
+#    # currently does not work, see 
 # https://github.com/JuliaArrays/MappedArrays.jl/issues/40
 #    passmissing(getindex).(passmissing(params).(dv.dvec),i)
 # end
@@ -342,7 +342,7 @@ true
 Note that if one of the parameters for entry `i` is missing, then `dv[i]`
 is missing.
 
-Since distributions are stored by parameter vectors, the acces to these
+Since distributions are stored by parameter vectors, the access to these
 vectors is just passing a reference.
 Indexing, will create Distribution types.
 """
@@ -354,7 +354,7 @@ end
 
 function ParamDistributionVector(::Type{D}, params::V) where 
 {D<:Distribution,  V<:Tuple} 
-    isconcretetype(D) || error("Expected a concrete distibution type," *
+    isconcretetype(D) || error("Expected a concrete distribution type," *
         " Did you specify all type parameters, e.g. $D{Float64}?")
     all(map((x -> x <: AbstractVector), V.parameters)) || error(
         "Expected all entries in Tuple param to be AbstractVectors.")
@@ -391,7 +391,7 @@ function ParamDistributionVector(::Type{D}, pvec::Vararg{Any,N}) where
     pvecm = isMissingAllowed ? pvec : begin
         inferred_type = first(Base.return_types(allowmissingtuple, typeof.(pvec))) 
         inferred_type === Tuple && error(
-            "All parameter vectors must allow for missings. Use allowmissing(parm).")
+            "All parameter vectors must allow for missings. Use allowmissing(param).")
         allowmissingtuple(pvec...)
     end
     ParamDistributionVector(D, pvecm)        
