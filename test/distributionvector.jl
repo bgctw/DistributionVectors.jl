@@ -20,7 +20,7 @@ using RecursiveArrayTools, FillArrays
     # do not allow tuples of different length
     vectupm = [(1,1.01, "string 1"), (2,2.02, "string 2",:asymbol)] 
     @test_throws Exception tupvecm = vectuptotupvec(vectupm)
-    # do not allow tuples of differnt types - note the Float64 in first entry
+    # do not allow tuples of different types - note the Float64 in first entry
     vectupm = [(1.00,1.01, "string 1"), (2,2.02, "string 2",:asymbol)] 
     @test_throws Exception tupvecm = vectuptotupvec(vectupm)
 end;
@@ -74,7 +74,7 @@ end;
         @test !(dvt === dv) # but not identical (different object)
         dvt[1:2] .= missing
         @test isequal(dvt[1:2], [missing, missing]) 
-        @test !ismissing(dv[1]) # original not overidden
+        @test !ismissing(dv[1]) # original not overridden
     end;
     @testset "constructor with several Distributions" begin
         d1 = Binomial(1, 0.25)
@@ -221,7 +221,7 @@ end; # testset "SimpleDistributionVector"
         @test dvt[2] == Binomial(4, 0.4)
         dvt[1:2] .= missing
         @test isequal(dvt[1:2], [missing, missing]) 
-        @test !ismissing(dv[1]) # original not overidden
+        @test !ismissing(dv[1]) # original not overridden
     end;
     @testset "constructor with several Distributions" begin
         d1 = Binomial(1, 0.25)

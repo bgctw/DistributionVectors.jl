@@ -3,7 +3,7 @@
 
 A representation of the autocorrelation function.
 
-It supports accessing the coeficients starting from lag 0 by
+It supports accessing the coefficients starting from lag 0 by
 - `coef(acf::AutoCorrelationFunction)`: implements StatsBase.coef
 - `coef(acf::AutoCorrelationFunction, lag::Integer)`: coefficient for lag
 
