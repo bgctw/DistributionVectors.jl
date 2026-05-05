@@ -161,7 +161,7 @@ end;
         x = rand(dvm,5)
         x = @inferred T rand(dvm,5)
         @test size(x) == (5,nD)
-        @test size(x[1]) == (5,)
+        @test size(x.u[1]) == (5,) # changed in v4 of RecursiveArrayTools
         @test all(ismissing.(x[:,1]))
     end;
 end; # testset "SimpleDistributionVector"
@@ -306,7 +306,7 @@ end; # testset "SimpleDistributionVector"
         nD = length(dv0)
         x = @inferred T rand(dvm,5)
         @test size(x) == (5,nD)
-        @test size(x[1]) == (5,)
+        @test size(x.u[1]) == (5,)
         @test all(ismissing.(x[:,1]))
     end;
 end; #@testset "ParamDistributionVector"
