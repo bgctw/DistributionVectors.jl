@@ -25,7 +25,7 @@ Missings = "1.2"
 OffsetArrays = "1.17"
 RecursiveArrayTools = "3.36, 4"
 Statistics = "1.10"
-StatsBase = "^0.33.6, 0.34"
+StatsBase = "0.34"
 julia = "1.10"
 
 [workspace]
