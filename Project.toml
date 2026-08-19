@@ -18,14 +18,14 @@ StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 
 [compat]
 BandedMatrices = "1.9"
-Distributions = "0.25.120"
+Distributions = "0.25"
 FillArrays = "1.13"
 MissingStrategies = "0.2"
 Missings = "1.2"
 OffsetArrays = "1.17"
 RecursiveArrayTools = "3.36, 4"
 Statistics = "1.10"
-StatsBase = "0.34"
+StatsBase = "0.33, 0.34"
 julia = "1.10"
 
 [workspace]
