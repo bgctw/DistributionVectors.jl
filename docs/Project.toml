@@ -10,4 +10,11 @@ StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 StatsPlots = "f3b207a7-027a-5e70-b257-86293d7955fd"
 
 [compat]
-Statistics = "1.11.1"
+Distributions = "0.25"
+Documenter = "1"
+LinearAlgebra = "1"
+MissingStrategies = "0.2"
+Missings = "1"
+Statistics = "1.11"
+StatsBase = "0.34"
+StatsPlots = "0.15"

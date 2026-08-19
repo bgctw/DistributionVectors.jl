@@ -1,7 +1,7 @@
 name = "DistributionVectors"
 uuid = "876525fa-7cae-420f-8fd8-59a6b63fe7c3"
 authors = ["Thomas Wutzler"]
-version = "0.1.0"
+version = "0.1.1-DEV"
 
 [deps]
 BandedMatrices = "aae01518-5342-5314-be14-df237901396f"
@@ -18,7 +18,7 @@ StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 
 [compat]
 BandedMatrices = "1.9"
-Distributions = "0.25.120"
+Distributions = "0.25.88"
 FillArrays = "1.13"
 MissingStrategies = "0.2"
 Missings = "1.2"
